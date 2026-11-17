@@ -1,0 +1,52 @@
+<Window x:Class="StudyShell.Desktop.DesktopWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:desktop="clr-namespace:StudyShell.Desktop"
+        WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False"
+        ShowActivated="False" AllowsTransparency="False"
+        Background="#FF05070D" Topmost="False" Focusable="True"
+        AllowDrop="True" Drop="OnDrop" DragOver="OnDragOver"
+        MouseLeftButtonDown="OnWindowMouseDown" MouseMove="OnWindowMouseMove"
+        MouseLeftButtonUp="OnWindowMouseUp" MouseRightButtonDown="OnWindowRightDown"
+        PreviewKeyDown="OnKeyDown"
+        Loaded="OnLoaded" Closed="OnClosed">
+    <Grid x:Name="RootGrid">
+        <Image x:Name="WallpaperImage" Stretch="UniformToFill" IsHitTestVisible="False"/>
+        <ItemsControl x:Name="IconsControl" ItemsSource="{Binding Items}" Focusable="False">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <desktop:DesktopIconControl/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Canvas x:Name="SelectionLayer" IsHitTestVisible="False">
+            <Rectangle x:Name="SelectionRect" Stroke="#6639FF88" StrokeThickness="1"
+                       Fill="#2239FF88" RadiusX="4" RadiusY="4" Visibility="Collapsed"/>
+        </Canvas>
+
+        <!-- Виджет времени учёбы -->
+        <Border x:Name="StudyCard" Style="{StaticResource CardBorder}" Padding="18,14"
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,24,24,0"
+                Visibility="Collapsed" IsHitTestVisible="False">
+            <StackPanel>
+                <TextBlock Text="ВРЕМЯ УЧЁБЫ" FontSize="11" FontWeight="SemiBold"
+                           Foreground="{DynamicResource AccentBrush}"/>
+                <TextBlock x:Name="StudyCountdown" Text="00:00:00" FontSize="34" FontWeight="Light"
+                           Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,4,0,0"/>
+                <TextBlock x:Name="StudyNote" Text="Игры заблокированы" FontSize="12"
+                           Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,2,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

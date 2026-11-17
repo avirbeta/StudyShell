@@ -1,0 +1,13 @@
+# Сборка
+bin/
+obj/
+dist/
+*.user
+
+# Временные файлы
+*.log
+*.tmp
+.vs/
+
+*_wpftmp.csproj
+*.wpftmp

@@ -1,0 +1,26 @@
+<Window x:Class="StudyShell.Taskbar.CalendarPopupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False"
+        AllowsTransparency="True" Background="Transparent"
+        Topmost="True" ShowActivated="True"
+        Width="316" SizeToContent="Height"
+        Deactivated="OnDeactivated" PreviewKeyDown="OnKeyDown">
+    <Border CornerRadius="14" Background="#F50A0C14" BorderBrush="{DynamicResource AccentBrush}"
+            BorderThickness="1" Padding="16">
+        <StackPanel>
+            <Grid Margin="0,0,0,8">
+                <Button x:Name="PrevBtn" Style="{StaticResource IconButton}" Content="&#xE76B;" FontSize="12"
+                        HorizontalAlignment="Left" Click="OnPrev"/>
+                <TextBlock x:Name="MonthTitle" Text="" FontSize="14" FontWeight="SemiBold"
+                           Foreground="{DynamicResource AccentBrush}" HorizontalAlignment="Center"/>
+                <Button x:Name="NextBtn" Style="{StaticResource IconButton}" Content="&#xE76C;" FontSize="12"
+                        HorizontalAlignment="Right" Click="OnNext"/>
+            </Grid>
+            <UniformGrid x:Name="DayNames" Columns="7" Margin="0,0,0,4"/>
+            <UniformGrid x:Name="DaysGrid" Columns="7"/>
+            <Border Height="1" Background="#FF1E2433" Margin="0,10"/>
+            <TextBlock x:Name="TodayText" Text="" FontSize="12.5" Foreground="#FF7E8AA0"/>
+        </StackPanel>
+    </Border>
+</Window>
