@@ -40,17 +40,15 @@ Fortnite, CS, Dota, GTA V и десятки других игр (см. `guard.ps
 Запускается задачей планировщика каждую минуту **от имени обычного
 пользователя** — права администратора НЕ нужны:
 
-```powershell
-Register-ScheduledTask -TaskName "StudyShellGuard" `
-  -Action (New-ScheduledTaskAction -Execute "powershell.exe" `
-    -Argument '-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "%APPDATA%\StudyShell\guard.ps1"') `
-  -Trigger @((New-ScheduledTaskTrigger -AtStartup),
-    (New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 1) -RepetitionDuration (New-TimeSpan -Days 3650))) `
-  -Force
+```bat
+schtasks /Create /TN "StudyShellGuard" ^
+  /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \"%APPDATA%\StudyShell\guard.ps1\"" ^
+  /SC MINUTE /MO 1 /F
 ```
 
-Задача уровня пользователя закрывает только процессы этого же
-пользователя — поэтому для установки ничего не запрашивается.
+Без ключа /RU задача создаётся от текущего пользователя, поэтому
+система ничего не запрашивает и закрывает только процессы этого же
+пользователя.
 
 > Чтобы блокировку нельзя было обойти, игрок должен работать под
 > **обычной** (не администраторской) учётной записью.
